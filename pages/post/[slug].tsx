@@ -80,11 +80,11 @@ function Post({post}: Props) {
               name='_id'
               value={post._id} />
 
-            <label 
-                {...register("name", {required: true})} 
-                className='block mb-5'>
+            <label className='block mb-5'>
                 <span className='text-gray-700'>Name</span>
-                <input className='shadow border rounded py-2 px-3 form-input mt-1 block w-full ring-yellow-500 outline-none focus:ring' 
+                <input 
+                {...register("name", {required: true})} 
+                className='shadow border rounded py-2 px-3 form-input mt-1 block w-full ring-yellow-500 outline-none focus:ring' 
                 placeholder='Enter your name' type="text" />
             </label>
             <label className='block mb-5'>
