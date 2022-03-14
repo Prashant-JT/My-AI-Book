@@ -139,6 +139,19 @@ function Post({post}: Props) {
             </form>
           )}
           
+          {/* Comment section */}
+          <div className='flex flex-col p-10 my-10 max-w-2xl mx-auto 
+          shadow-yellow-500 shadow space-y-2'>
+              <h3 className='text-4xl'>Comments</h3>
+              <hr className='pb-2'/>
+
+              {post.comments.map((comment) => (
+                  <div key={comment._id}>
+                      <span className='text-yellow-500'>{comment.name}: </span>
+                      {comment.comment}
+                  </div>
+              ))}
+          </div>
       </article>
   </main>;
 }
@@ -166,13 +179,6 @@ export const getStaticPaths = async () => {
     };
 };
 
-/*
-'comments': *[
-    _type == "comment" &&
-    post.ref == ^._id &&
-    approved == true],
-*/
-
 export const getStaticProps: GetStaticProps = async ({params}) => {
     const query = `*[_type == "post" && slug.current == $slug][0] {
         _id,
@@ -182,6 +188,11 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
             name,
             image
         },
+        'comments': *[
+            _type == "comment" &&
+            post._ref == ^._id &&
+            approved == true
+        ],
         description,
         mainImage,
         slug,
